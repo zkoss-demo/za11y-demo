@@ -1,0 +1,23 @@
+plugins {
+    id 'war'
+    id 'org.gretty' version '3.0.2'
+}
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+repositories {
+    mavenCentral()
+    jcenter()
+    maven { url 'https://mavensync.zkoss.org/eval' }
+    // for com.lowagie:itext:2.1.7.js6
+    maven { url 'https://jaspersoft.jfrog.io/jaspersoft/third-party-ce-artifacts/' }
+}
+
+dependencies {
+    implementation "org.zkoss.zk:zul:${zkVersion}"
+    implementation "org.zkoss.zk:zkmax:${zkVersion}"
+}
+
+gretty {
+    httpPort = 8080
+}
