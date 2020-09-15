@@ -1,11 +1,12 @@
 <?style src="demo.css" ?>
-<zk xmlns:ca="client/attribute">
+<zk xmlns:ca="client/attribute" xmlns:w="client">
     <borderlayout apply="zk.demo.a11y.MainComposer" sclass="demo-wrapper">
-        <north ca:role="banner">
-            <hlayout width="100%" valign="middle" sclass="demo-banner">
-                <label sclass="demo-banner--title" value="ZA11Y - DEMO" hflex="1"/>
+        <north ca:role="banner" vflex="min"
+               w:onAfterSize="zUtl.fireSized(this); zUtl.fireSized(this.parent);">
+            <div sclass="demo-banner">
+                <label sclass="demo-banner--title" value="ZA11Y - DEMO"/>
                 <selectbox id="themeSelection"/>
-            </hlayout>
+            </div>
         </north>
         <west ca:role="navigation" collapsible="true" splittable="true" minsize="200" width="200px">
             <navbar id="sideNav" orient="vertical" hflex="1"/>

@@ -24,6 +24,10 @@ body[class*=wcag] .demo-content--header {
 
 .demo-banner {
     padding: var(--box-padding);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
 }
 .demo-banner--title {
     font-size: calc(var(--base-font-size) * 1.5);
@@ -100,4 +104,9 @@ body[class*=wcag] .demo-content--header {
 .order-list--filter > label > * {
     margin-top: 5px;
     display: block;
+}
+
+/* workaround */
+.z-navbar-vertical {
+    max-width: initial;
 }
