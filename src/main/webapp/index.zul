@@ -1,3 +1,15 @@
-<zk>
-	Hello world
+<?style src="demo.css" ?>
+<zk xmlns:ca="client/attribute">
+    <borderlayout apply="zk.demo.a11y.MainComposer" sclass="demo-wrapper">
+        <north ca:role="banner">
+            <hlayout width="100%" valign="middle" sclass="demo-banner">
+                <label sclass="demo-banner--title" value="ZA11Y - DEMO" hflex="1"/>
+                <selectbox id="themeSelection"/>
+            </hlayout>
+        </north>
+        <west ca:role="navigation" collapsible="true" splittable="true" minsize="200" width="200px">
+            <navbar id="sideNav" orient="vertical" hflex="1"/>
+        </west>
+        <center ca:role="main" id="content" autoscroll="true"/>
+    </borderlayout>
 </zk>

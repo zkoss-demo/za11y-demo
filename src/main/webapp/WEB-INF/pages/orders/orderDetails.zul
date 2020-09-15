@@ -1,0 +1,42 @@
+<zk>
+    <idspace apply="${navInfo.composer}">
+        <stepbar id="orderSteps" linear="false" wrappedLabels="true">
+            <template name="model">
+                <step title="${each.label}"/>
+            </template>
+        </stepbar>
+        <grid>
+            <rows>
+                <row>
+                    <cell>Name</cell>
+                    <cell colspan="2">${order.customer.name}</cell>
+                </row>
+                <row>
+                    <cell>Address</cell>
+                    <cell colspan="2">${order.customer.address}</cell>
+                </row>
+                <forEach items="${order.items}">
+                    <row>
+                        <cell>${each.name}</cell>
+                        <cell>${each.description}</cell>
+                        <cell>$ ${each.price}</cell>
+                    </row>
+                </forEach>
+                <row>
+                    <cell colspan="2">Total (${order.numItems} Items)</cell>
+                    <cell>$ ${order.total}</cell>
+                </row>
+            </rows>
+        </grid>
+        <separator/>
+        <hlayout>
+            <div hflex="1">
+                Status:
+                <selectbox id="orderStatus">
+                    <template name="model">${each.label}</template>
+                </selectbox>
+            </div>
+            <button id="cancelOrder" label="Cancel Order"/>
+        </hlayout>
+    </idspace>
+</zk>

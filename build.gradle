@@ -1,6 +1,6 @@
 plugins {
     id 'war'
-    id 'org.gretty' version '3.0.2'
+    id 'org.gretty' version '3.0.3'
 }
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
@@ -8,6 +8,13 @@ targetCompatibility = '1.8'
 repositories {
     mavenCentral()
     jcenter()
+//    maven {
+//        credentials { /*e.g. defined in ~/.gradle/gradle.properties*/
+//            username mavenUser
+//            password mavenPassword
+//        }
+//        url "https://maven.zkoss.org/repo/zk/ee" //ZK-EE repo requires login
+//    }
     maven { url 'https://mavensync.zkoss.org/eval' }
     // for com.lowagie:itext:2.1.7.js6
     maven { url 'https://jaspersoft.jfrog.io/jaspersoft/third-party-ce-artifacts/' }
@@ -16,6 +23,15 @@ repositories {
 dependencies {
     implementation "org.zkoss.zk:zul:${zkVersion}"
     implementation "org.zkoss.zk:zkmax:${zkVersion}"
+    implementation "org.zkoss.zk:zuti:${zkVersion}"
+    implementation "org.zkoss.zk:za11y:${zkVersion}"
+
+    implementation "org.zkoss.theme:iceblue_c:${zkVersion}"
+    implementation "org.zkoss.theme:wcag:${zkVersion}"
+    implementation "org.zkoss.theme:wcag_c:${zkVersion}"
+
+    // optional / choose your own logger implementation
+    runtimeOnly 'ch.qos.logback:logback-classic:1.2.3'
 }
 
 gretty {

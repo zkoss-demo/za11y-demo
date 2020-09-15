@@ -1,0 +1,103 @@
+body {
+    --box-padding: 12px 16px;
+    --base-font-size: 16px;
+    --icon-size: 22px;
+    --theme-border-color: #D9D9D9;
+    background-color: #EEE;
+}
+
+body[class$=_c] {
+    --box-padding: 6px 8px;
+    --base-font-size: 12px;
+    --icon-size: 18px;
+}
+
+body[class*=wcag] .demo-content--header {
+    --theme-border-color: #969696;
+}
+
+.demo-wrapper {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.demo-banner {
+    padding: var(--box-padding);
+}
+.demo-banner--title {
+    font-size: calc(var(--base-font-size) * 1.5);
+    font-weight: bold;
+    white-space: nowrap;
+}
+.demo-content--header {
+    padding: var(--box-padding);
+    border-bottom: 1px solid var(--theme-border-color);
+}
+.demo-content--title {
+    font-size: calc(var(--base-font-size) * 1.3);
+    font-weight: bold;
+}
+
+.z-west-body, .z-north-body, .z-center-body, .z-tabbox .z-tabpanel {
+    padding: 0;
+}
+
+.z-west, .z-center, .z-east {
+    border-width: 0 1px;
+}
+
+.z-listbox {
+    border-width: 0 0 1px 0;
+}
+
+.z-tabbox {
+    border-radius: 0;
+    border: none;
+}
+.z-groupbox-content {
+    padding: var(--box-padding);
+}
+
+.z-navbar {
+    border: none;
+}
+
+.z-groupbox > .z-groupbox-header,
+.z-groupbox > .z-groupbox-content {
+    border-width: 0 0 1px 0;
+}
+.z-groupbox .z-groupbox-title[aria-expanded]::after {
+    font-family: ZK85Icons, FontAwesome;
+    font-size: var(--icon-size);
+    position: absolute;
+    right: 10px;
+}
+.z-groupbox .z-groupbox-title[aria-expanded=true]::after {
+    content: '\f102';
+}
+.z-groupbox .z-groupbox-title[aria-expanded=false]::after {
+    content: '\f103';
+}
+
+.order-list--filter {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+}
+@media (min-width: 720px) {
+    .order-list--filter {
+        grid-template-columns: 1fr 1fr;
+    }
+    .order-list--filter .span {
+        grid-column: 1 / -1;
+    }
+}
+.order-list--filter > div > .z-label {
+    line-height: inherit;
+}
+.order-list--filter > div > .z-label + *,
+.order-list--filter > label > * {
+    margin-top: 5px;
+    display: block;
+}

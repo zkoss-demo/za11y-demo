@@ -1,0 +1,17 @@
+<zk>
+    <idspace apply="zk.demo.a11y.OrdersComposer">
+        <div sclass="demo-content--header">
+            <label sclass="demo-content--title" value="Orders"/>
+        </div>
+        <tabbox id="ordersNav" sclass="mytabbox">
+            <template name="model:tab">
+                <tab label="${each.title}" closable="${each.closable}" forward="onClose=ordersNav.onCloseTab(${each})"/>
+            </template>
+            <template name="model:tabpanel">
+                <tabpanel>
+                    <apply templateURI="/WEB-INF/pages/orders/${each.navId}.zul" navInfo="${each}"/>
+                </tabpanel>
+            </template>
+        </tabbox>
+    </idspace>
+</zk>

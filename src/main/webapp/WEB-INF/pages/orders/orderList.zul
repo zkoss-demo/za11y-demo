@@ -1,0 +1,60 @@
+<zk xmlns:n="native" xmlns:ca="client/attribute">
+    <div apply="${navInfo.composer}">
+        <groupbox title="Filter" mold="3d" open="true" forward="onOK=refresh.onClick">
+            <div sclass="order-list--filter">
+                <n:label>Search
+                    <textbox id="searchFilter" width="100%"/>
+                </n:label>
+                <n:label>Status
+                    <selectbox id="statusFilter" width="100%">
+                        <template name="model">${each.label}</template>
+                    </selectbox>
+                </n:label>
+                <div>
+                    <label id="ingLabel" value="Ingredients"/>
+                    <searchbox ca:aria-label="${ingLabel.value}" id="ingredientsFilter" width="100%"/>
+                </div>
+                <div sclass="span">
+                    Price
+                    <rangeslider id="priceFilter" width="100%"
+                                 min="0" max="200" startValue="5" endValue="80" markScale="50"
+                                 ca:data-ariaStartLabel="Minimum Price"
+                                 ca:data-ariaEndLabel="Maximum Price"/>
+                </div>
+            </div>
+            <separator/>
+            <button id="refresh" label="Refresh" iconSclass="z-icon-refresh"/>
+        </groupbox>
+        <listbox id="orderList" mold="paging" pageSize="10">
+            <listhead>
+                <listheader label="No. #" width="70px" sort="auto(number)"/>
+                <listheader label="Status" width="100px" sort="auto(status)"/>
+                <listheader label="No Items" width="100px" sort="auto(numItems)"/>
+                <listheader label="Name" width="200px" sort="auto(customer.name)"/>
+                <listheader label="Zip Code" width="100px" sort="auto(customer.address.zipCode)"/>
+                <listheader label="Total" width="100px" sort="auto(total)"/>
+                <listheader label="Actions" width="200px"/>
+                <listheader />
+            </listhead>
+            <template name="model">
+                <listitem>
+                    <listcell label="${each.number}"/>
+                    <listcell label="${each.status.label}"/>
+                    <listcell label="${each.numItems}"/>
+                    <listcell label="${each.customer.name}"/>
+                    <listcell label="${each.customer.address.zipCode}"/>
+                    <listcell label="$ ${each.total}"/>
+                    <listcell>
+                        <button iconSclass="z-icon-check" tooltiptext="complete"
+                                forward="onClick=orderList.onComplete(${each})"/>
+                        <button iconSclass="z-icon-edit" tooltiptext="modify"
+                                forward="onClick=orderList.onShowDetails(${each})"/>
+                        <button iconSclass="z-icon-times" tooltiptext="delete"
+                                forward="onClick=orderList.onCancel(${each})"/>
+                    </listcell>
+                    <listcell/>
+                </listitem>
+            </template>
+        </listbox>
+    </div>
+</zk>
