@@ -1,5 +1,7 @@
 # ZA11Y (ZK-Accessibility) Demo
 
+(_This demo is based on a preview version, feedback is welcome and will be considered in future improvements)._
+
 A demo project for selected accessibility features and patterns since zk 9.5.0 (provided in
 za11y.jar and the wcag/_c themes).
 
