@@ -42,6 +42,9 @@ body[class*=wcag] .demo-content--header {
     font-size: calc(var(--base-font-size) * 1.3);
     font-weight: bold;
 }
+.demo-content--paragraph {
+    padding: var(--box-padding);
+}
 
 .z-west-body, .z-north-body, .z-center-body, .z-tabbox .z-tabpanel {
     padding: 0;
