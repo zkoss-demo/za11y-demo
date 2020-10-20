@@ -34,6 +34,8 @@ dependencies {
     runtimeOnly 'ch.qos.logback:logback-classic:1.2.3'
 }
 
+war.archiveFileName = 'za11y-demo.war'
+
 gretty {
     httpPort = 8080
 }

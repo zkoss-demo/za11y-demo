@@ -1,6 +1,6 @@
 <?style src="demo.css" ?>
 <zk xmlns:ca="client/attribute" xmlns:w="client">
-    <borderlayout apply="zk.demo.a11y.MainComposer" sclass="demo-wrapper">
+    <borderlayout apply="zk.demo.a11y.MainComposer" sclass="demo-wrapper" id="main">
         <north ca:role="banner" vflex="min"
                w:onAfterSize="zUtl.fireSized(this); zUtl.fireSized(this.parent);">
             <div sclass="demo-banner">

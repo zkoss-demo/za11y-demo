@@ -1,6 +1,6 @@
 <zk>
     <idspace apply="${navInfo.composer}">
-        <stepbar id="orderSteps" linear="false" wrappedLabels="true">
+        <stepbar id="orderSteps" linear="true" wrappedLabels="true">
             <template name="model">
                 <step title="${each.label}"/>
             </template>

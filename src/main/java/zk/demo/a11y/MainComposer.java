@@ -43,14 +43,18 @@ public class MainComposer extends SelectorComposer {
         super.doAfterCompose(comp);
         initThemeSelection(themeSelection);
         initSideNav(sideNav);
-//        navigateTo("overview");
-        navigateTo("orders");
+        navigateTo("overview");
     }
 
     @Listen("onSelect=#sideNav")
-    public void onNavigate(Event navEvent) {
+    public void onSelectNavItem(Event navEvent) {
         Navitem navitem = ((Navbar) navEvent.getTarget()).getSelectedItem();
         navigateTo((String) navitem.getAttribute(NAV_ID));
+    }
+
+    @Listen("onNavigate=#main")
+    public void onNavigate(Event navEvent) {
+        navigateTo((String) (String) navEvent.getData());
     }
 
     private void navigateTo(String navId) {
