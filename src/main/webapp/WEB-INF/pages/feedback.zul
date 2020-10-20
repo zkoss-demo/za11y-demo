@@ -47,7 +47,7 @@
         				<cell>
         					<vlayout>
         						<textbox id="commentTextbox" value="@bind(feedbackForm.comment)@validator(feedbackvm.commentValidator)" multiline="true" hflex="1" rows="10"/>
-        						<label id="m2" sclass="@load(empty feedbackvmsgs[commentTextbox] ? '' : 'alert-message alert-container')" ca:role="alert" value="@bind(feedbackvmsgs[commentTextbox])"/>
+        						<label id="m2" sclass="@load(empty feedbackvmsgs[commentTextbox] ? '' : 'alert-message alert-container')" ca:role="alert" value="@load(feedbackvmsgs[commentTextbox])"/>
         					</vlayout>
         				</cell>
         			</row>
