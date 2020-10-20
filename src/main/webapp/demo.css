@@ -106,6 +106,29 @@ body[class*=wcag] .demo-content--header {
     display: block;
 }
 
+/* feedback form */
+.feedback-container{
+	padding: 20px;	
+}
+.alert-container-empty{
+	display: none;
+}
+.alert-container{
+	background-color: #FFEAEC;
+	color: #FF4051;
+	padding: 10px;
+	display: block;
+}
+.alert-message, .alert-title{
+	font-weight: bold;
+}
+.alert-message{
+	font-size: 16px;
+}
+.alert-title{
+	font-size: 20px;
+}
+
 /* workaround */
 .z-navbar-vertical {
     max-width: initial;

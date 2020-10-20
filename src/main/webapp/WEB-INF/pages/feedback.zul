@@ -1,8 +1,60 @@
-<zk>
-    <idspace>
+<zk xmlns:ca="client/attribute" xmlns:n="native">
+    <idspace viewModel="@id('feedbackvm')@init('zk.demo.a11y.FeedbackViewModel')" validationMessages="@id('feedbackvmsgs')">
         <div sclass="demo-content--header">
             <label sclass="demo-content--title" value="Feedback"/>
         </div>
+        <vlayout form="@id('feedbackForm') @load(feedbackvm.formContent) @save(feedbackvm.formContent, before='save')" sclass="feedback-container">
+	        <vlayout ca:role="alert" sclass="@load(empty feedbackvmsgs.texts ? 'alert-container-empty':'alert-container')">
+            <n:h1>Alerts</n:h1>
+	        	<label sclass="alert-title" value="Errors in this page:"/>
+				<forEach items="@load(feedbackvmsgs.texts)">
+					<label sclass="alert-message" value="${each}"/>
+				</forEach>
+	        </vlayout>
+        	<label sclass="" value="Please tell us what you thought of our service"/>
+        	<grid>
+        		<rows>
+        			<row>
+        				<cell>
+        					How many pizza did you order?
+        				</cell>
+        				<cell>
+        					<vlayout  >
+        						<intbox id="countIntbox" value="@bind(feedbackForm.pizzaCount)@validator(feedbackvm.pizzaCountValidator)"/>
+        						<label id="m1" sclass="@load(empty feedbackvmsgs[countIntbox] ? '' : 'alert-message alert-container')" ca:role="alert" value="@load(feedbackvmsgs[countIntbox])"/>
+        					</vlayout>
+        				</cell>
+        			</row>
+        			<row>
+        				<cell>
+        					How did you order?
+        				</cell>
+        				<cell>
+        					<vlayout>
+        						<listbox mold="select" emptyMessage="Please select one">
+        							<listitem selected="true" label="In store"></listitem>
+        							<listitem label="By phone"></listitem>
+        							<listitem label="By app"></listitem>
+        							<listitem label="By our website"></listitem>
+        						</listbox>
+        					</vlayout>
+        				</cell>
+        			</row>
+        			<row>
+        				<cell>
+        					Your comments
+        				</cell>
+        				<cell>
+        					<vlayout>
+        						<textbox id="commentTextbox" value="@bind(feedbackForm.comment)@validator(feedbackvm.commentValidator)" multiline="true" hflex="1" rows="10"/>
+        						<label id="m2" sclass="@load(empty feedbackvmsgs[commentTextbox] ? '' : 'alert-message alert-container')" ca:role="alert" value="@bind(feedbackvmsgs[commentTextbox])"/>
+        					</vlayout>
+        				</cell>
+        			</row>
+        		</rows>
+        	</grid>
+        	<button label="submit" onClick="@command('save')"/>
+        </vlayout>
     </idspace>
 
 </zk>
