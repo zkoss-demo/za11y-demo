@@ -24,10 +24,10 @@
         		<rows>
         			<row>
         				<cell>
-        					<label id="countLabel" value="How many pizza did you order?"/>
+        					<div id="countLabel">How many pizza did you order?</div>
         				</cell>
         				<cell>
-        					<vlayout  >
+        					<vlayout>
         						<intbox id="countIntbox" ca:aria-labelledby="${countLabel.uuid}" value="@bind(feedbackForm.pizzaCount)@validator(feedbackvm.pizzaCountValidator)"/>
         						<label id="m1" sclass="@load(empty feedbackvmsgs[countIntbox] ? '' : 'alert-message alert-container')" ca:role="alert" value="@load(feedbackvmsgs[countIntbox])"/>
         					</vlayout>
@@ -35,11 +35,11 @@
         			</row>
         			<row>
         				<cell>
-        					How did you order?
+        					<div id="typeLabel">How did you order?</div>
         				</cell>
         				<cell>
         					<vlayout>
-        						<listbox mold="select" emptyMessage="Please select one">
+        						<listbox mold="select" ca:aria-labelledby="${typeLabel.uuid}" emptyMessage="Please select one">
         							<listitem selected="true" label="In store"></listitem>
         							<listitem label="By phone"></listitem>
         							<listitem label="By app"></listitem>
@@ -50,7 +50,7 @@
         			</row>
         			<row>
         				<cell>
-        					<label value="Please enter your comments" id="commentLabel"/>
+        					<div id="commentLabel">Please enter your comments</div>
         				</cell>
         				<cell>
         					<vlayout>
