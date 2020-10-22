@@ -11,7 +11,7 @@
 	        <div sclass="demo-content--paragraph">
 	            Press ENTER to start, then continue using your keyboard only or a screen-reader to navigate/operate the page without using your mouse.
 	        </div>
-	        <div sclass="demo-content--paragraph">
+	        <div sclass="demo-content--paragraph blue">
 	            <button label="Start" focus="true" forward="onClick=main.onNavigate(${'orders'})"/>
 	            (The "WCAG Blue" Theme should be already pre-selected, if not use the selectbox above).
 	        </div>
