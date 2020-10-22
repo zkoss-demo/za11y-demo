@@ -4,8 +4,16 @@
             <label sclass="demo-content--title" value="Feedback"/>
         </div>
         <vlayout form="@id('feedbackForm') @load(feedbackvm.formContent) @save(feedbackvm.formContent, before='save')" sclass="feedback-container">
+	        <vlayout sclass="info-box-container">
+	        	<span>How to test validation messages and wcag enabled alerts:</span>
+	        	<span>- Click the sumbit button without filling the form.</span>
+	        	<span>> Notifications are displayed.</span>
+	        	<span>- Fill the form and click submit again</span>
+	        	<span>> Notifications disapear and the form is submitted</span>
+	        </vlayout>
+	        <separator orient="horizontal" bar="true"/>
 	        <vlayout ca:role="alert" sclass="@load(empty feedbackvmsgs.texts ? 'alert-container-empty':'alert-container')">
-            <n:h1>Alerts</n:h1>
+            	<n:h1>Alerts</n:h1>
 	        	<label sclass="alert-title" value="Errors in this page:"/>
 				<forEach items="@load(feedbackvmsgs.texts)">
 					<label sclass="alert-message" value="${each}"/>
@@ -16,11 +24,11 @@
         		<rows>
         			<row>
         				<cell>
-        					How many pizza did you order?
+        					<label id="countLabel" value="How many pizza did you order?"/>
         				</cell>
         				<cell>
         					<vlayout  >
-        						<intbox id="countIntbox" value="@bind(feedbackForm.pizzaCount)@validator(feedbackvm.pizzaCountValidator)"/>
+        						<intbox id="countIntbox" ca:aria-labelledby="${countLabel.uuid}" value="@bind(feedbackForm.pizzaCount)@validator(feedbackvm.pizzaCountValidator)"/>
         						<label id="m1" sclass="@load(empty feedbackvmsgs[countIntbox] ? '' : 'alert-message alert-container')" ca:role="alert" value="@load(feedbackvmsgs[countIntbox])"/>
         					</vlayout>
         				</cell>
@@ -42,11 +50,11 @@
         			</row>
         			<row>
         				<cell>
-        					Your comments
+        					<label value="Please enter your comments" id="commentLabel"/>
         				</cell>
         				<cell>
         					<vlayout>
-        						<textbox id="commentTextbox" value="@bind(feedbackForm.comment)@validator(feedbackvm.commentValidator)" multiline="true" hflex="1" rows="10"/>
+        						<textbox id="commentTextbox" ca:aria-labelledby="${commentLabel.uuid}" value="@bind(feedbackForm.comment)@validator(feedbackvm.commentValidator)" multiline="true" hflex="1" rows="10"/>
         						<label id="m2" sclass="@load(empty feedbackvmsgs[commentTextbox] ? '' : 'alert-message alert-container')" ca:role="alert" value="@load(feedbackvmsgs[commentTextbox])"/>
         					</vlayout>
         				</cell>
