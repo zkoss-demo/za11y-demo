@@ -3,13 +3,13 @@
         <div sclass="demo-content--header">
             <label sclass="demo-content--title" value="Feedback"/>
         </div>
-        <vlayout sclass="info-box-container">
-        	<span sclass="demo-content--paragraph demo-content--subtitle">How to test validation messages and wcag enabled alerts:</span>
-        	<span sclass="demo-content--paragraph">-Click the sumbit button without filling the form.</span>
-        	<span sclass="demo-content--paragraph">>Notifications are displayed.</span>
-        	<span sclass="demo-content--paragraph">-Fill the form and click submit again</span>
-        	<span sclass="demo-content--paragraph">>Notifications disapear and the form is submitted</span>
-        </vlayout>
+        <div sclass="info-box-container">
+        	<div sclass="demo-content--paragraph demo-content--subtitle">How to test validation messages and wcag enabled alerts:</div>
+        	<div sclass="demo-content--paragraph">-Click the sumbit button without filling the form.</div>
+        	<div sclass="demo-content--paragraph">>Notifications are displayed.</div>
+        	<div sclass="demo-content--paragraph">-Fill the form and click submit again</div>
+        	<div sclass="demo-content--paragraph">>Notifications disapear and the form is submitted</div>
+        </div>
         <vlayout form="@id('feedbackForm') @load(feedbackvm.formContent) @save(feedbackvm.formContent, before='save')" sclass="feedback-container">
 	        <separator orient="horizontal" bar="true"/>
 	        <vlayout ca:role="alert" sclass="@load(empty feedbackvmsgs.texts ? 'alert-container-empty':'alert-container')">

@@ -154,6 +154,10 @@ body[class*=wcag] .demo-content--header {
 	padding: 0 0 8px 0;
 }
 
+.info-box-container * {
+	line-height: 1.5;
+}
+
 .info-box-container:before{
 	font-family: ZK85Icons, FontAwesome;
     content: "\f129";
