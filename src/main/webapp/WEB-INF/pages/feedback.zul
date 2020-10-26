@@ -1,67 +1,85 @@
 <zk xmlns:ca="client/attribute" xmlns:n="native">
-    <idspace viewModel="@id('feedbackvm')@init('zk.demo.a11y.FeedbackViewModel')" validationMessages="@id('feedbackvmsgs')">
+    <idspace viewModel="@id('feedbackvm')@init('zk.demo.a11y.FeedbackViewModel')"
+             validationMessages="@id('feedbackvmsgs')">
         <div sclass="demo-content--header">
             <label sclass="demo-content--title" value="Feedback"/>
         </div>
-        <div sclass="info-box-container">
-        	<div sclass="demo-content--paragraph demo-content--subtitle">How to test validation messages and wcag enabled alerts:</div>
-        	<div sclass="demo-content--paragraph">-Click the sumbit button without filling the form.</div>
-        	<div sclass="demo-content--paragraph">>Notifications are displayed.</div>
-        	<div sclass="demo-content--paragraph">-Fill the form and click submit again</div>
-        	<div sclass="demo-content--paragraph">>Notifications disapear and the form is submitted</div>
+        <div sclass="demo-content--info-box">
+            <div sclass="demo-content--paragraph demo-content--subtitle">How to test validation messages and wcag
+                enabled alerts:
+            </div>
+            <n:ol class="z-label">
+                <n:li>
+                    Click the submit button without filling the form.
+                    <n:div class="text-highlight">Notifications are displayed.</n:div>
+                </n:li>
+                <n:li>
+                    Fill the form and click submit again.
+                    <n:div class="text-highlight">Notifications disappear and the form is submitted.</n:div>
+                </n:li>
+            </n:ol>
         </div>
-        <vlayout form="@id('feedbackForm') @load(feedbackvm.formContent) @save(feedbackvm.formContent, before='save')" sclass="feedback-container">
-	        <separator orient="horizontal" bar="true"/>
-	        <vlayout ca:role="alert" sclass="@load(empty feedbackvmsgs.texts ? 'alert-container-empty':'alert-container')">
-            	<n:h1>Alerts</n:h1>
-	        	<label sclass="alert-title" value="Errors in this page:"/>
-				<forEach items="@load(feedbackvmsgs.texts)">
-					<label sclass="alert-message" value="${each}"/>
-				</forEach>
-	        </vlayout>
-        	<label sclass="" value="Please tell us what you thought of our service"/>
-        	<grid>
-        		<rows>
-        			<row>
-        				<cell>
-        					<div id="countLabel">How many pizza did you order?</div>
-        				</cell>
-        				<cell>
-        					<vlayout>
-        						<intbox id="countIntbox" ca:aria-labelledby="${countLabel.uuid}" value="@bind(feedbackForm.pizzaCount)@validator(feedbackvm.pizzaCountValidator)"/>
-        						<label id="m1" sclass="@load(empty feedbackvmsgs[countIntbox] ? '' : 'alert-message alert-container')" ca:role="alert" value="@load(feedbackvmsgs[countIntbox])"/>
-        					</vlayout>
-        				</cell>
-        			</row>
-        			<row>
-        				<cell>
-        					<div id="typeLabel">How did you order?</div>
-        				</cell>
-        				<cell>
-        					<vlayout>
-        						<listbox mold="select" ca:aria-labelledby="${typeLabel.uuid}" emptyMessage="Please select one">
-        							<listitem selected="true" label="In store"></listitem>
-        							<listitem label="By phone"></listitem>
-        							<listitem label="By app"></listitem>
-        							<listitem label="By our website"></listitem>
-        						</listbox>
-        					</vlayout>
-        				</cell>
-        			</row>
-        			<row>
-        				<cell>
-        					<div id="commentLabel">Please enter your comments</div>
-        				</cell>
-        				<cell>
-        					<vlayout>
-        						<textbox id="commentTextbox" ca:aria-labelledby="${commentLabel.uuid}" value="@bind(feedbackForm.comment)@validator(feedbackvm.commentValidator)" multiline="true" hflex="1" rows="10"/>
-        						<label id="m2" sclass="@load(empty feedbackvmsgs[commentTextbox] ? '' : 'alert-message alert-container')" ca:role="alert" value="@load(feedbackvmsgs[commentTextbox])"/>
-        					</vlayout>
-        				</cell>
-        			</row>
-        		</rows>
-        	</grid>
-        	<button label="submit" onClick="@command('save')"/>
+        <separator orient="horizontal" bar="true" height="1px"/>
+        <vlayout form="@id('feedbackForm') @load(feedbackvm.formContent) @save(feedbackvm.formContent, before='save')"
+                 sclass="box-padding">
+            <vlayout ca:role="alert"
+                     sclass="@load(empty feedbackvmsgs.texts ? 'alert-container-empty':'alert-container')">
+                <n:h1>Alerts</n:h1>
+                <label sclass="alert-title" value="Errors in this page:"/>
+                <forEach items="@load(feedbackvmsgs.texts)">
+                    <label sclass="alert-message" value="${each}"/>
+                </forEach>
+            </vlayout>
+            <label sclass="" value="Please tell us what you thought of our service"/>
+            <grid>
+                <rows>
+                    <row>
+                        <cell>
+                            <div id="countLabel">How many pizzas did you order?</div>
+                        </cell>
+                        <cell>
+                            <vlayout>
+                                <intbox id="countIntbox" width="100%" ca:aria-labelledby="${countLabel.uuid}"
+                                        value="@bind(feedbackForm.pizzaCount)@validator(feedbackvm.pizzaCountValidator)"/>
+                                <label id="m1"
+                                       sclass="@load(empty feedbackvmsgs[countIntbox] ? '' : 'alert-message alert-container')"
+                                       ca:role="alert" value="@load(feedbackvmsgs[countIntbox])"/>
+                            </vlayout>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell>
+                            <div id="typeLabel">How did you order?</div>
+                        </cell>
+                        <cell>
+                            <listbox zclass="z-selectbox" style="width: 100%; min-width: initial; max-width: 100%"
+                                     mold="select" ca:aria-labelledby="${typeLabel.uuid}"
+                                     emptyMessage="Please select one">
+                                <listitem selected="true" label="In Store"></listitem>
+                                <listitem label="By Phone"></listitem>
+                                <listitem label="By App"></listitem>
+                                <listitem label="From our Website"></listitem>
+                            </listbox>
+                        </cell>
+                    </row>
+                    <row>
+                        <cell>
+                            <div id="commentLabel">Please enter your comments</div>
+                        </cell>
+                        <cell>
+                            <vlayout>
+                                <textbox id="commentTextbox" ca:aria-labelledby="${commentLabel.uuid}"
+                                         value="@bind(feedbackForm.comment)@validator(feedbackvm.commentValidator)"
+                                         multiline="true" hflex="1" rows="10"/>
+                                <label id="m2"
+                                       sclass="@load(empty feedbackvmsgs[commentTextbox] ? '' : 'alert-message alert-container')"
+                                       ca:role="alert" value="@load(feedbackvmsgs[commentTextbox])"/>
+                            </vlayout>
+                        </cell>
+                    </row>
+                </rows>
+            </grid>
+            <button label="Submit" onClick="@command('save')"/>
         </vlayout>
     </idspace>
 

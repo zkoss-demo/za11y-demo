@@ -3,7 +3,7 @@
         <div sclass="demo-content--header">
             <label sclass="demo-content--title" value="ZA11Y (ZK-Accessibility) Demo"/>
         </div>
-		<vlayout sclass="info-box-container">
+		<vlayout sclass="demo-content--info-box">
 	        <div sclass="demo-content--paragraph">
 	            A project demonstrating ZK accessibility features such as high contrast themes, keyboard navigation and assistive technologies support.
 	            <a href="https://github.com/zkoss-demo/za11y-demo/blob/master/README.md">Learn more ...</a>
@@ -11,7 +11,7 @@
 	        <div sclass="demo-content--paragraph">
 	            Press ENTER to start, then continue using your keyboard only or a screen-reader to navigate/operate the page without using your mouse.
 	        </div>
-	        <div sclass="demo-content--paragraph blue">
+	        <div sclass="demo-content--paragraph text-highlight">
 	            <button label="Start" focus="true" forward="onClick=main.onNavigate(${'orders'})"/>
 	            (The "WCAG Blue" Theme should be already pre-selected, if not use the selectbox above).
 	        </div>

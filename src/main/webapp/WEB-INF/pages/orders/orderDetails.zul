@@ -28,15 +28,14 @@
                 </row>
             </rows>
         </grid>
-        <separator/>
-        <hlayout>
+        <hlayout sclass="box-padding">
             <div hflex="1">
                 Status:
-                <selectbox id="orderStatus">
+                <selectbox id="orderStatus" style="min-width: 100px">
                     <template name="model">${each.label}</template>
                 </selectbox>
             </div>
-            <button id="cancelOrder" label="Cancel Order"/>
+            <button id="cancelOrder" label="Cancel"/>
         </hlayout>
     </idspace>
 </zk>
