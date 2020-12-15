@@ -4,4 +4,10 @@
         <name>org.zkoss.theme.preferred</name>
         <value>wcag_c</value>
     </library-property>
+    <desktop-config>
+        <theme-uri>~./css/demo.css</theme-uri>
+    </desktop-config>
+    <system-config>
+        <web-app-class>zk.demo.init.CacheBreakingWebApp</web-app-class>
+    </system-config>
 </zk>
