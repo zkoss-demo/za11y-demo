@@ -1,14 +1,20 @@
 <zk xmlns:ca="client/attribute" xmlns:w="client">
     <borderlayout apply="zk.demo.a11y.MainComposer" sclass="demo-wrapper" id="main">
-        <north ca:role="banner" vflex="min"
+        <north id="bannerNorth" ca:role="banner" vflex="min"
                w:onAfterSize="zUtl.fireSized(this); zUtl.fireSized(this.parent);">
-            <div sclass="demo-banner">
-                <label sclass="demo-banner--title" value="ZA11Y - DEMO"/>
-                <selectbox id="themeSelection"/>
+            <div>
+                <div sclass="demo-banner">
+                    <div>
+                        <a ca:role="button" id="menuToggle" sclass="demo-banner--menu-toggle" iconSclass="z-icon-bars"/>
+                        <label sclass="demo-banner--title" value="ZA11Y - DEMO"/>
+                    </div>
+                    <selectbox id="themeSelection"/>
+                </div>
+                <div id="bannerNavContainer" sclass="demo-banner--nav-container" visible="false"/>
             </div>
         </north>
-        <west ca:role="navigation" collapsible="true" splittable="true" minsize="200" width="200px">
-            <navbar id="sideNav" orient="vertical" hflex="1"/>
+        <west id="sideNavWest" ca:role="navigation" collapsible="true" splittable="true" minsize="200" width="200px" visible="false">
+            <navbar id="mainNav" orient="vertical" hflex="1"/>
         </west>
         <center ca:role="main" id="content" autoscroll="true"/>
     </borderlayout>

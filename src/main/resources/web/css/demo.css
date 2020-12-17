@@ -30,6 +30,10 @@ body[class*=wcag] .demo-content--header {
     flex-wrap: wrap;
     align-items: center;
 }
+.demo-banner--menu-toggle {
+    font-size: calc(var(--base-font-size) * 1.5);
+    white-space: nowrap;
+}
 .demo-banner--title {
     font-size: calc(var(--base-font-size) * 1.5);
     font-weight: bold;

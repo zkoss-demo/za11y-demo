@@ -1,17 +1,17 @@
 package zk.demo.a11y;
 
 import org.zkoss.zk.ui.*;
+import org.zkoss.zk.ui.event.ClientInfoEvent;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zk.ui.metainfo.ComponentInfo;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zkmax.zul.Navbar;
 import org.zkoss.zkmax.zul.Navitem;
-import org.zkoss.zul.Center;
-import org.zkoss.zul.ListModelList;
-import org.zkoss.zul.Selectbox;
+import org.zkoss.zul.*;
 import org.zkoss.zul.ext.Selectable;
 import org.zkoss.zul.theme.Themes;
 import zk.demo.a11y.repository.OrderRepo;
@@ -24,7 +24,15 @@ public class MainComposer extends SelectorComposer {
     @Wire
     private Selectbox themeSelection;
     @Wire
-    private Navbar sideNav;
+    private A menuToggle;
+    @Wire
+    private North bannerNorth;
+    @Wire
+    private West sideNavWest;
+    @Wire
+    private Div bannerNavContainer;
+    @Wire
+    private Navbar mainNav;
     @Wire
     private Center content;
 
@@ -42,11 +50,41 @@ public class MainComposer extends SelectorComposer {
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
         initThemeSelection(themeSelection);
-        initSideNav(sideNav);
+        initMainNav(mainNav);
         navigateTo("overview");
+        menuToggle.setClientAttribute("aria-controls", bannerNavContainer.getUuid());
     }
 
-    @Listen("onSelect=#sideNav")
+    @Listen("onClientInfo=#main")
+    public void handleClientInfo(ClientInfoEvent clientInfoEvent) {
+        boolean largeView = clientInfoEvent.getDesktopWidth() >= 720;
+        mainNav.setParent(largeView ? sideNavWest : bannerNavContainer);
+        if(largeView) {
+            sideNavWest.setVisible(true);
+            menuToggle.setVisible(false);
+            toggleBannerNavContainer(false);
+        } else {
+            sideNavWest.setVisible(false);
+            if(!menuToggle.isVisible()) {
+                menuToggle.setVisible(true);
+                toggleBannerNavContainer(false);
+            }
+        }
+    }
+
+    @Listen("onClick=#bannerNorth #menuToggle")
+    public void toggleMenu() {
+        toggleBannerNavContainer(!bannerNavContainer.isVisible());
+    }
+
+    private void toggleBannerNavContainer(boolean open) {
+        bannerNavContainer.setVisible(open);
+        menuToggle.setClientAttribute("aria-expanded", String.valueOf(open));
+        menuToggle.invalidate();
+        Clients.resize(this.getSelf());
+    }
+
+    @Listen("onSelect=#mainNav")
     public void onSelectNavItem(Event navEvent) {
         Navitem navitem = ((Navbar) navEvent.getTarget()).getSelectedItem();
         navigateTo((String) navitem.getAttribute(NAV_ID));
@@ -59,15 +97,15 @@ public class MainComposer extends SelectorComposer {
 
     private void navigateTo(String navId) {
         content.getChildren().clear();
-        findNavitemById(sideNav, navId).ifPresent(item -> item.setSelected(true));
+        findNavitemById(mainNav, navId).ifPresent(item -> item.setSelected(true));
         Executions.createComponents("/WEB-INF/pages/" + navId + ".zul", content, null);
     }
 
-    private void initSideNav(Navbar sideNav) {
-        sideNav.appendChild(createNavitem("overview", "Overview", "z-icon-eye"));
-        sideNav.appendChild(createNavitem("orders", "Orders", "z-icon-list-alt"));
-        sideNav.appendChild(createNavitem("feedback", "Feedback", "z-icon-thumbs-up"));
-        sideNav.appendChild(createNavitem("statistics", "Statistics", "z-icon-bar-chart"));
+    private void initMainNav(Navbar mainNav) {
+        mainNav.appendChild(createNavitem("overview", "Overview", "z-icon-eye"));
+        mainNav.appendChild(createNavitem("orders", "Orders", "z-icon-list-alt"));
+        mainNav.appendChild(createNavitem("feedback", "Feedback", "z-icon-thumbs-up"));
+        mainNav.appendChild(createNavitem("statistics", "Statistics", "z-icon-bar-chart"));
     }
 
     private Navitem createNavitem(String navId, String label, String iconSclass) {
