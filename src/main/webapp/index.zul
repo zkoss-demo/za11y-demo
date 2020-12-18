@@ -5,7 +5,8 @@
             <div>
                 <div sclass="demo-banner">
                     <div>
-                        <a ca:role="button" id="menuToggle" sclass="demo-banner--menu-toggle" iconSclass="z-icon-bars"/>
+                        <a ca:role="button" id="menuToggle" sclass="demo-banner--menu-toggle" iconSclass="z-icon-bars"
+                           ca:aria-label="Toggle Navigation"/>
                         <label sclass="demo-banner--title" value="ZA11Y - DEMO"/>
                     </div>
                     <selectbox id="themeSelection"/>
