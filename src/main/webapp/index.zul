@@ -1,6 +1,6 @@
 <zk xmlns:ca="client/attribute" xmlns:w="client">
     <borderlayout apply="zk.demo.a11y.MainComposer" sclass="demo-wrapper" id="main">
-        <north id="bannerNorth" ca:role="banner" vflex="min"
+        <north id="bannerNorth" ca:role="banner" vflex="min" style="overflow: visible;"
                w:onAfterSize="zUtl.fireSized(this); zUtl.fireSized(this.parent);">
             <div>
                 <div sclass="demo-banner">
@@ -10,10 +10,11 @@
                     </div>
                     <selectbox id="themeSelection"/>
                 </div>
-                <div id="bannerNavContainer" sclass="demo-banner--nav-container" visible="false"/>
+                <div id="bannerNavContainer" ca:role="navigation" sclass="demo-banner--nav-container" visible="false"/>
             </div>
         </north>
-        <west id="sideNavWest" ca:role="navigation" collapsible="true" splittable="true" minsize="200" width="200px" visible="false">
+        <west id="sideNavWest" ca:role="navigation" collapsible="true" splittable="true" minsize="200" width="200px"
+              visible="false">
             <navbar id="mainNav" orient="vertical" hflex="1"/>
         </west>
         <center ca:role="main" id="content" autoscroll="true"/>

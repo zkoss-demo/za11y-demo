@@ -81,13 +81,17 @@ public class MainComposer extends SelectorComposer {
         bannerNavContainer.setVisible(open);
         menuToggle.setClientAttribute("aria-expanded", String.valueOf(open));
         menuToggle.invalidate();
-        Clients.resize(this.getSelf());
+        mainNav.focus(); //no effect due to issue https://tracker.zkoss.org/browse/ZK-4753
     }
 
     @Listen("onSelect=#mainNav")
     public void onSelectNavItem(Event navEvent) {
         Navitem navitem = ((Navbar) navEvent.getTarget()).getSelectedItem();
         navigateTo((String) navitem.getAttribute(NAV_ID));
+        toggleBannerNavContainer(false);
+        if(menuToggle.isVisible()) {
+            menuToggle.focus();
+        }
     }
 
     @Listen("onNavigate=#main")

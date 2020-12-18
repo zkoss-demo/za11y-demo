@@ -34,6 +34,23 @@ body[class*=wcag] .demo-content--header {
     font-size: calc(var(--base-font-size) * 1.5);
     white-space: nowrap;
 }
+.demo-banner--nav-container {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 100%;
+}
+.demo-banner--nav-container::before {
+    content: '';
+    position: absolute;
+    top: calc(100% - 2px);
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.demo-banner--nav-container > .z-navbar {
+    background: white;
+}
 .demo-banner--title {
     font-size: calc(var(--base-font-size) * 1.5);
     font-weight: bold;
