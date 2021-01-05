@@ -27,8 +27,8 @@ dependencies {
     implementation "org.zkoss.zk:za11y:${zkVersion}"
 
     implementation "org.zkoss.theme:iceblue_c:${zkVersion}"
-    implementation "org.zkoss.themepack:wcag:${zkVersion}"
-    implementation "org.zkoss.themepack:wcag_c:${zkVersion}"
+    implementation "org.zkoss.themepack:wcag:${zkVersionTheme}"
+    implementation "org.zkoss.themepack:wcag_c:${zkVersionTheme}"
 
     // optional / choose your own logger implementation
     runtimeOnly 'ch.qos.logback:logback-classic:1.2.3'
