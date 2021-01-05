@@ -9,7 +9,10 @@
                            ca:aria-label="Toggle Navigation"/>
                         <label sclass="demo-banner--title" value="ZA11Y - DEMO"/>
                     </div>
-                    <selectbox id="themeSelection"/>
+                    <div>
+                        <label value="Theme" />
+                        <selectbox id="themeSelection" ca:aria-labelledby="${self.previousSibling.uuid}"/>
+                    </div>
                 </div>
                 <div id="bannerNavContainer" ca:role="navigation" sclass="demo-banner--nav-container" visible="false"/>
             </div>
