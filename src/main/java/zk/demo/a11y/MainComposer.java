@@ -8,7 +8,6 @@ import org.zkoss.zk.ui.metainfo.ComponentInfo;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
-import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zkmax.zul.Navbar;
 import org.zkoss.zkmax.zul.Navitem;
 import org.zkoss.zul.*;
@@ -36,13 +35,16 @@ public class MainComposer extends SelectorComposer {
     @Wire
     private Center content;
 
+    private boolean largeView;
+
     @Override
     public ComponentInfo doBeforeCompose(Page page, Component parent, ComponentInfo compInfo) {
         // usually created by an IOC container
-        Session session = Sessions.getCurrent();
-        if(!session.hasAttribute("orderRepo")) {
-            session.setAttribute("orderRepo", new OrderRepo(100, 5));
+        Desktop desktop = Executions.getCurrent().getDesktop();
+        if(!desktop.hasAttribute("orderRepo")) {
+            desktop.setAttribute("orderRepo", new OrderRepo(100, 5));
         }
+        desktop.enableServerPush(true);
         return super.doBeforeCompose(page, parent, compInfo);
     }
 
@@ -59,6 +61,11 @@ public class MainComposer extends SelectorComposer {
     public void handleClientInfo(ClientInfoEvent clientInfoEvent) {
         boolean largeView = clientInfoEvent.getDesktopWidth() >= 720;
         mainNav.setParent(largeView ? sideNavWest : bannerNavContainer);
+        toggleLargeView(largeView);
+    }
+
+    private void toggleLargeView(boolean largeView) {
+        this.largeView = largeView;
         if(largeView) {
             sideNavWest.setVisible(true);
             menuToggle.setVisible(false);
@@ -81,15 +88,17 @@ public class MainComposer extends SelectorComposer {
         bannerNavContainer.setVisible(open);
         menuToggle.setClientAttribute("aria-expanded", String.valueOf(open));
         menuToggle.invalidate();
-        mainNav.focus(); //no effect due to issue https://tracker.zkoss.org/browse/ZK-4753
+        if(open) {
+            mainNav.focus(); //no effect due to issue https://tracker.zkoss.org/browse/ZK-4753
+        }
     }
 
     @Listen("onSelect=#mainNav")
     public void onSelectNavItem(Event navEvent) {
         Navitem navitem = ((Navbar) navEvent.getTarget()).getSelectedItem();
         navigateTo((String) navitem.getAttribute(NAV_ID));
-        toggleBannerNavContainer(false);
-        if(menuToggle.isVisible()) {
+        if(!this.largeView) {
+            toggleBannerNavContainer(false);
             menuToggle.focus();
         }
     }

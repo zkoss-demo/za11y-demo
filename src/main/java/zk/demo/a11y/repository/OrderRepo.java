@@ -12,6 +12,8 @@ import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import static zk.demo.a11y.domain.OrderStatus.*;
+
 public class OrderRepo {
 
     private List<Order> orders = new ArrayList<>();
@@ -25,6 +27,9 @@ public class OrderRepo {
             }
             orders.add(order);
         }
+        orders.get(1).setStatus(PREPARING);
+        orders.get(2).setStatus(DELIVERING);
+        orders.get(3).setStatus(COMPLETE);
     }
 
     public List<String> findIngredients() {

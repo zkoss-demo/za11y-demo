@@ -2,7 +2,7 @@ package zk.demo.a11y.domain;
 
 public enum OrderStatus {
     OPEN("Open"),
-    PREPARINF("Preparing"),
+    PREPARING("Preparing"),
     DELIVERING("Delivering"),
     COMPLETE("Complete");
 

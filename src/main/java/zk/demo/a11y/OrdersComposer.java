@@ -1,18 +1,20 @@
 package zk.demo.a11y;
 
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Desktop;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zk.ui.util.Clients;
+import org.zkoss.zkmax.ui.util.Toast;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Tabbox;
 import zk.demo.a11y.domain.Order;
 
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import static org.zkoss.zul.Messagebox.Button.CANCEL;
@@ -25,9 +27,12 @@ public class OrdersComposer extends SelectorComposer<Component> {
     private static final Messagebox.Button[] OK_CANCEL = {OK, CANCEL};
     private static final String[] CANCEL_ORDER_LABELS = {"Cancel Order", "Keep Order"};
 
+
+    private final LiveUpdates liveUpdates = new LiveUpdates(this::onOrderUpdated);
+
     @Wire
     private Tabbox ordersNav;
-    private ListModelList<NavInfo> navModel = new ListModelList<>();
+    private final ListModelList<NavInfo> navModel = new ListModelList<>();
     private OrderListComposer orderListComposer;
 
     @Override
@@ -51,8 +56,12 @@ public class OrdersComposer extends SelectorComposer<Component> {
             protected void onCancelOrder(Order order) {
                 cancelOrder(order);
             }
+
+            @Override
+            protected void onToggleLiveUpdates(boolean enabled) {
+                liveUpdates.toggle(enabled);
+            }
         };
-        Map<String, Object> navData = Collections.singletonMap("composer", orderListComposer);
         navModel.add(new NavInfo("orderList", "Order List", orderListComposer, false));
         navModel.addToSelection(navModel.get(0));
         ordersNav.setModel(navModel);
@@ -78,8 +87,26 @@ public class OrdersComposer extends SelectorComposer<Component> {
         navModel.remove(navInfo);
     }
 
+    private void onOrderUpdated(Order order) {
+        try {
+            Desktop desktop = this.getSelf().getDesktop();
+            Executions.schedule(desktop, event -> {
+                refreshOrder(order);
+                Toast.show("Order " + order.getNumber() + " updated to '" + order.getStatus().getLabel() + "'");
+            }, new Event("onUpdate"));
+        } catch (Exception e) {
+            System.out.println("Stopping Live Updates");
+            liveUpdates.toggle(false);
+            throw e;
+        }
+    }
+
     private void completeOrder(Order order) {
         order.setStatus(COMPLETE);
+        refreshOrder(order);
+    }
+
+    private void refreshOrder(Order order) {
         navInfosByOrder(order).forEach(navModel::notifyChange);
         orderListComposer.refreshRow(order);
     }
@@ -105,10 +132,10 @@ public class OrdersComposer extends SelectorComposer<Component> {
     }
 
     public static class NavInfo<T> {
-        private String navId;
-        private String title;
-        private T composer;
-        private boolean closable;
+        final private String navId;
+        final private String title;
+        final private T composer;
+        final private boolean closable;
 
         public NavInfo(String navId, String title, T composer, boolean closable) {
             this.navId = navId;

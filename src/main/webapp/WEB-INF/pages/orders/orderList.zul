@@ -23,9 +23,12 @@
                 </div>
             </div>
             <separator/>
-            <button id="refresh" label="Refresh" iconSclass="z-icon-refresh"/>
+            <div>
+                <button id="refresh" label="Refresh" iconSclass="z-icon-refresh"/>
+                <checkbox id="liveUpdatesToggle" label="toggle live updates (server push)"/>
+            </div>
         </groupbox>
-        <listbox id="orderList" mold="paging" pageSize="10">
+        <listbox id="orderList" mold="paging" pageSize="10" sclass="order-list--list">
             <listhead>
                 <listheader label="No. #" width="70px" sort="auto(number)"/>
                 <listheader label="Status" width="100px" sort="auto(status)"/>
@@ -37,7 +40,7 @@
                 <listheader />
             </listhead>
             <template name="model">
-                <listitem>
+                <listitem sclass="order-list--item__${each.status}">
                     <listcell label="${each.number}"/>
                     <listcell label="${each.status.label}"/>
                     <listcell label="${each.numItems}"/>

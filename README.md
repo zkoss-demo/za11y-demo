@@ -28,6 +28,7 @@ are recommended, before designing and integrating an accessibility design in you
   * listbox, paging, filter
   * input elements, buttons
   * messagebox
+  * toast (live updates via server-push)
   * ... (to be extended)
 
 ## Run/Build Commands

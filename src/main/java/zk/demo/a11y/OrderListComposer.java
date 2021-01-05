@@ -1,17 +1,14 @@
 package zk.demo.a11y;
 
 import org.zkoss.zk.ui.Component;
-import org.zkoss.zk.ui.Sessions;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zkex.zul.Rangeslider;
 import org.zkoss.zkmax.zul.Searchbox;
-import org.zkoss.zul.ListModelList;
-import org.zkoss.zul.Listbox;
-import org.zkoss.zul.Selectbox;
-import org.zkoss.zul.Textbox;
+import org.zkoss.zul.*;
 import zk.demo.a11y.domain.Order;
 import zk.demo.a11y.domain.OrderStatus;
 import zk.demo.a11y.repository.OrderRepo;
@@ -21,7 +18,7 @@ import java.util.List;
 public abstract class OrderListComposer extends SelectorComposer<Component> {
 
     // usually injected by an IOC container
-    private OrderRepo orderRepo = (OrderRepo) Sessions.getCurrent().getAttribute("orderRepo");
+    private final OrderRepo orderRepo = (OrderRepo) Executions.getCurrent().getDesktop().getAttribute("orderRepo");
 
     @Wire
     private Listbox orderList;
@@ -32,10 +29,12 @@ public abstract class OrderListComposer extends SelectorComposer<Component> {
     @Wire
     private Rangeslider priceFilter;
     @Wire
-    private Searchbox ingredientsFilter;
+    private Searchbox<String> ingredientsFilter;
     @Wire
     private Selectbox statusFilter;
     private ListModelList<OrderStatus> orderStatusModel;
+    @Wire
+    private Checkbox liveUpdatesToggle;
 
     @Override
     public void doAfterCompose(Component comp) throws Exception {
@@ -43,7 +42,7 @@ public abstract class OrderListComposer extends SelectorComposer<Component> {
         orderListModel = new ListModelList<>();
         orderList.setModel(orderListModel);
 
-        ListModelList ingredientsModel = new ListModelList(orderRepo.findIngredients());
+        ListModelList<String> ingredientsModel = new ListModelList<>(orderRepo.findIngredients());
         ingredientsModel.setMultiple(true);
         ingredientsFilter.setModel(ingredientsModel);
 
@@ -71,6 +70,11 @@ public abstract class OrderListComposer extends SelectorComposer<Component> {
         refreshOrders();
     }
 
+    @Listen("onCheck=#liveUpdatesToggle")
+    public void toggleLiveUpdates() {
+        onToggleLiveUpdates(liveUpdatesToggle.isChecked());
+    }
+
     @Listen("onComplete=#orderList")
     public void onComplete(Event event) {
         onCompleteOrder((Order) event.getData());
@@ -89,6 +93,7 @@ public abstract class OrderListComposer extends SelectorComposer<Component> {
     protected abstract void onCompleteOrder(Order order);
     protected abstract void onCancelOrder(Order order);
     protected abstract void onShowDetails(Order order);
+    protected abstract void onToggleLiveUpdates(boolean checked);
 
     public void refreshRow(Order order) {
         if(order.isCanceled()) {
@@ -97,4 +102,5 @@ public abstract class OrderListComposer extends SelectorComposer<Component> {
             orderListModel.notifyChange(order);
         }
     }
+
 }
