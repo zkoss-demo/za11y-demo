@@ -1,0 +1,80 @@
+<zk xmlns:n="native" xmlns:x="xhtml" xmlns:ca="client/attribute">
+	<vlayout ca:aria-labelledby="mainTitle">
+		<style>
+			
+			.h1, .pizzaCard, .title, .subtitle, .paragraph, .highlight{
+				font-family: Verdana, Arial, Helvetica, sans-serif;
+       			padding: 0px;
+       			margin: 0px;
+       			line-height: normal;
+			}
+			h1, .pizzaCard{
+				padding: 20px;
+			}
+			
+			.title{
+       			font-size: 120%;
+       			color: green;
+       			font-weight: bold;
+			}
+			
+			.subtitle{
+       			font-size: 110%;
+       			color: black;
+       			font-weight: bold;
+			}
+			
+			.paragraph, .paragraph .z-label{
+       			font-size: 100%;
+       			color: #6E6E6E;
+			
+			}
+
+			.highlight{
+       			font-size: 100%;
+				text-decoration: underlined;
+				font-weight: bold;
+				color: #6E6E6E;
+			}
+			
+		</style>
+		<x:h1 id="mainTitle">Recomended items</x:h1>
+		<vlayout sclass="pizzaCard">
+			<x:h2 class="title">Margherita Pizza</x:h2>
+			<x:h3 class="subtitle">Best seller</x:h3>
+			<x:p class="paragraph"><x:span class="highlight" role="mark">Pizza Margherita</x:span> is a typical Neapolitan pizza, made with San Marzano tomatoes, mozzarella cheese, fresh basil, salt and extra-virgin olive oil.</x:p>
+		</vlayout>
+		<vlayout sclass="pizzaCard">
+			<label ca:role="heading" sclass="title" ca:aria-level="2">Capricciosa</label>
+			<label ca:role="heading" sclass="subtitle" ca:aria-level="3">Chef's choice</label>
+			<hlayout sclass="paragraph">
+				<label sclass="highlight" ca:role="mark">Pizza Capricciosa</label>
+				<label> is prepared with mozzarella cheese, Italian baked ham, mushroom, artichoke and tomato</label>
+			</hlayout>
+		</vlayout>
+<vlayout sclass="pizzaCard">
+	<apply template="pizzaCard"  
+		title="Pizza pugliese"
+		subtitle="Recomended discovery"
+		highlight="Pizza pugliese"
+		description="is prepared with tomato, onion, and mozzarella."/>
+</vlayout>
+<template name="pizzaCard">
+	<apply template="title" content="${title}"/>
+	<apply template="subtitle" content="${subtitle}"/>
+	<apply template="paragraph" highlight="${highlight}" content="${description}" />
+</template>
+<template name="title">
+	<label sclass="title" ca:role="heading" ca:aria-level="2">${content}</label>
+</template>
+		<template name="subtitle">
+			<label sclass="subtitle" ca:role="heading" ca:aria-level="3">${content}</label>
+		</template>
+		<template name="paragraph">
+			<hlayout sclass="paragraph">
+				<label sclass="highlight" ca:role="mark">${highlight}</label>
+				<label> ${content}</label>
+			</hlayout>
+		</template>
+	</vlayout>
+</zk>

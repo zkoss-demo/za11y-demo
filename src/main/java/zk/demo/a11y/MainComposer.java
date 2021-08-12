@@ -118,6 +118,7 @@ public class MainComposer extends SelectorComposer {
         mainNav.appendChild(createNavitem("overview", "Overview", "z-icon-eye"));
         mainNav.appendChild(createNavitem("orders", "Orders", "z-icon-list-alt"));
         mainNav.appendChild(createNavitem("feedback", "Feedback", "z-icon-thumbs-up"));
+        mainNav.appendChild(createNavitem("highlights", "Highlights", "z-icon-fire"));
         mainNav.appendChild(createNavitem("statistics", "Statistics", "z-icon-bar-chart"));
     }
 
