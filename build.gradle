@@ -23,6 +23,7 @@ repositories {
 dependencies {
     implementation "org.zkoss.zk:zul:${zkVersion}"
     implementation "org.zkoss.zk:zkmax:${zkVersion}"
+    implementation "org.zkoss.zk:zhtml:${zkVersion}"
     implementation "org.zkoss.zk:zuti:${zkVersion}"
     implementation "org.zkoss.zk:za11y:${zkVersion}"
 
